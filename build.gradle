@@ -88,12 +88,12 @@ uploadArchives {
       pom.project {
         name 'conductor-component-group'
         packaging 'jar'
-        url 'https://github.com/SoShibby/Conductor-Component-Group-Template'
+        url 'https://github.com/SoShibby/Conductor-Component-Group'
 
         scm {
-          connection 'scm:https://github.com/SoShibby/Conductor-Component-Group-Template.git'
-          developerConnection 'scm:https://github.com/SoShibby/Conductor-Component-Group-Template.git'
-          url 'https://github.com/SoShibby/Conductor-Component-Group-Template'
+          connection 'scm:https://github.com/SoShibby/Conductor-Component-Group.git'
+          developerConnection 'scm:https://github.com/SoShibby/Conductor-Component-Group.git'
+          url 'https://github.com/SoShibby/Conductor-Component-Group'
         }
 
         licenses {
