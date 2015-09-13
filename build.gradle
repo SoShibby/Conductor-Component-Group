@@ -1,4 +1,6 @@
 apply plugin: 'java'
+apply plugin: 'maven'
+apply plugin: 'signing'
 apply plugin: 'eclipse'
 
 sourceCompatibility = 1.7
@@ -46,4 +48,69 @@ uploadArchives {
            dirs 'repos'
        }
     }
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign configurations.archives
+}
+
+group = "com.github.SoShibby"
+archivesBaseName = "conductor-component-group"
+version = "1.0.0"
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'conductor-component-group'
+        packaging 'jar'
+        url 'https://github.com/SoShibby/Conductor-Component-Group-Template'
+
+        scm {
+          connection 'scm:https://github.com/SoShibby/Conductor-Component-Group-Template.git'
+          developerConnection 'scm:https://github.com/SoShibby/Conductor-Component-Group-Template.git'
+          url 'https://github.com/SoShibby/Conductor-Component-Group-Template'
+        }
+
+        licenses {
+          license {
+            name 'The Apache License, Version 2.0'
+            url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+          }
+        }
+
+        developers {
+          developer {
+            id 'shibbey'
+            name 'Henrik Nilsson'
+            email 'hnilsson90@gmail.com'
+          }
+        }
+      }
+    }
+  }
 }
